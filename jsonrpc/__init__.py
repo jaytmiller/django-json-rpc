@@ -1,7 +1,7 @@
 import re
 import sys
 import six
-from inspect import getargspec
+from inspect import getfullargspec
 from jsonrpc.site import jsonrpc_site
 from jsonrpc._types import *
 from jsonrpc.exceptions import *
@@ -196,7 +196,7 @@ def jsonrpc_method(name,
     """
 
     def decorator(func):
-        arg_names = getargspec(func)[0][1:]
+        arg_names = getfullargspec(func)[0][1:]
         X = {'name': name, 'arg_names': arg_names}
         if authenticated:
             if authenticated is True or six.callable(authenticated):
