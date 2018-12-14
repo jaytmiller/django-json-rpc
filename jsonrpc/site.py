@@ -242,10 +242,12 @@ class JSONRPCSite(object):
                                                request=request)
 
             # Put stacktrace into the OtherError only if DEBUG is enabled
-            if settings.DEBUG:
-                other_error = OtherError(e)
-            else:
-                other_error = OtherError("Internal Server Error")
+            other_error = OtherError(e)
+            other_error.name = e.__class__.__name__
+
+            # if settings.DEBUG:
+            # else:
+            #     other_error = OtherError("Internal Server Error")
 
             response['error'] = other_error.json_rpc_format
             status = other_error.status

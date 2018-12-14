@@ -253,7 +253,11 @@ def jsonrpc_method(name,
                 return _func(*a, **kw)
             except Exception as e:
                 try:
-                    print('JSONRPC SERVICE EXCEPTION')
+                    from django.conf import settings                    
+                    if settings.DEBUG:
+                        print('JSONRPC SERVICE EXCEPTION: ', repr(name))
+                    else:
+                        print('JSONRPC SERVICE EXCEPTION')
                     import traceback
                     traceback.print_exc()
                 except:
